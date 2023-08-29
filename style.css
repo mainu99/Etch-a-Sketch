@@ -1,0 +1,46 @@
+
+.container {
+  display: flex;
+  align-content: center;
+  /* justify-content: center; */
+  background-color: bisque;
+  flex-flow: column wrap;
+  height: 100vi;
+}
+
+.buttons {
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+  margin-top: 10PX;
+  align-items: center;
+  background-color: rgb(221, 159, 141);
+  /* justify-content: center; */
+}
+
+.sketch {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-container {
+  display: grid;
+  flex: 1 auto;
+  gap: 1px; /* Gap between grid cells */
+  width: 400px; /* Adjust width of the grid container */
+  height: 400px; /* Adjust height of the grid container */
+  background-color: lightgray;
+  margin: 50px auto;
+  border: 1px solid gray;
+}
+
+
+.grid-item {
+  background-color: lightgray;
+  border: 1px solid gray;
+  text-align: center;
+  padding: 20px;
+  cursor: pointer;
+  display: flex;
+  flex: 1;
+}
