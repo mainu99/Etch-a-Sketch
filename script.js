@@ -1,33 +1,51 @@
-const gridContainer = document.getElementById('gridContainer');
+const gridContainer = document.querySelector("#container");
 
-// for (let row = 0; row < 2; row++) {
-//   for (let col = 0; col < 2; col++) {
+let cell = "";
+let size = 16;
 
-//     const gridCell = document.createElement('div');
-//     gridCell.className = 'grid-item';
-
-//     // Add a click event listener to the grid item
-//     gridCell.addEventListener('mouseover', function() {
-//       gridCell.style.backgroundColor = 'black';
-//     });
-
-//     // Append the grid item to the grid container
-//     gridContainer.appendChild(gridCell);
-//    }
-// }
-
-
-function createGrid(size = 4) {
-  
-  for(let i = 0; i < size; i++) {
-    for(let j = 0; j < size; j++) {
-      const gridCell =  document.createElement('div');
-      gridCell.className = 'grid-item';
-      gridCell.textContent = `${i + 1} , ${j + 1}`;
-      gridContainer.appendChild(gridCell);
-    }
+function makeGrid(size = 16) {
+  for (let i = 0; i < Math.pow(size, 2); i++) {
+    cell = document.createElement("div");
+    cell.classList.add("cell");
+    gridContainer.appendChild(cell);
   }
 }
 
+document.querySelector("#gridSize").addEventListener("click", () => {
+  size = prompt("Choose grid size");
+  gridContainer.style.gridTemplateRows = `repeat(${size}, 1em)`;
+  gridContainer.style.gridTemplateColumns = `repeat(${size}, 1em)`;
+  reset();
+  const gridCreationPromise = new Promise((resolve) => {
+    makeGrid(size);
+    // Resolve the promise after the makeGrid operation is complete
+    resolve();
+  });
 
-createGrid(5);
+  // Use .then() to execute code after the promise is resolved
+  gridCreationPromise.then(() => {
+    cells = document.querySelectorAll(".cell");
+    cells.forEach((cell) => {
+      cell.addEventListener("mouseover", () => {
+        cell.style.setProperty("background-color", "black");
+      });
+    });
+  });
+});
+
+makeGrid();
+
+let cells = document.querySelectorAll(".cell");
+
+cells.forEach((cell) => {
+  cell.addEventListener("mouseover", () => {
+    cell.style.setProperty("background-color", "black");
+  });
+});
+
+function reset() {
+  let cells = document.querySelectorAll(".cell");
+  cells.forEach((cell) => {
+    gridContainer.removeChild(cell);
+  });
+}
