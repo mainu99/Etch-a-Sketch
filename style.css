@@ -1,12 +1,48 @@
-#container {
+body {
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  height: 400px;
-  width: 400px;
+  height: 100vh;
+  margin: 0;
+  background-color: #f5f5f5;
+}
+
+.container {
+  text-align: center;
+}
+
+.sketch {
+  background-color: #fff;
+  border: 2px solid #333;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.button {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 5px;
+  border-radius: 3px;
+}
+
+.grid-container {
+  /* Ensure each cell is a square */
   display: grid;
-  grid-template-rows: repeat(16, 1em);
-  grid-template-columns: repeat(16, 1em);
+  grid-template-columns: repeat(var(--size), 1fr);
+  grid-template-rows: repeat(var(--size), 1fr);
+  gap: 1px;
 }
 
 .cell {
-  border: 1px solid black;
+  width: calc(100% / var(--size) - 1px);
+  height: calc(100% / var(--size) - 1px);
+  border: 1px solid #ccc;
+  display: inline-block;
 }
+

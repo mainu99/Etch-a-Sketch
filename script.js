@@ -1,51 +1,56 @@
 const gridContainer = document.querySelector("#container");
-
-let cell = "";
 let size = 16;
+let choice = 1;
 
-function makeGrid(size = 16) {
+function makeGrid(size) {
+  gridContainer.innerHTML = ""; // Clear previous cells
   for (let i = 0; i < Math.pow(size, 2); i++) {
-    cell = document.createElement("div");
+    const cell = document.createElement("div");
     cell.classList.add("cell");
     gridContainer.appendChild(cell);
   }
+}
+
+function setupCellEventListeners() {
+  const cells = document.querySelectorAll(".cell");
+  cells.forEach((cell) => {
+    cell.addEventListener("mouseover", () => {
+      cell.style.setProperty("background-color", choice ? "black" : "white");
+    });
+  });
+}
+
+function clearAllCells() {
+  const cells = document.querySelectorAll(".cell");
+  cells.forEach((cell) => {
+    cell.style.setProperty("background-color", "white");
+  });
 }
 
 document.querySelector("#gridSize").addEventListener("click", () => {
   size = prompt("Choose grid size");
   gridContainer.style.gridTemplateRows = `repeat(${size}, 1em)`;
   gridContainer.style.gridTemplateColumns = `repeat(${size}, 1em)`;
-  reset();
-  const gridCreationPromise = new Promise((resolve) => {
-    makeGrid(size);
-    // Resolve the promise after the makeGrid operation is complete
-    resolve();
-  });
-
-  // Use .then() to execute code after the promise is resolved
-  gridCreationPromise.then(() => {
-    cells = document.querySelectorAll(".cell");
-    cells.forEach((cell) => {
-      cell.addEventListener("mouseover", () => {
-        cell.style.setProperty("background-color", "black");
-      });
-    });
-  });
+  makeGrid(size);
+  setupCellEventListeners();
 });
 
-makeGrid();
-
-let cells = document.querySelectorAll(".cell");
-
-cells.forEach((cell) => {
-  cell.addEventListener("mouseover", () => {
-    cell.style.setProperty("background-color", "black");
-  });
+document.addEventListener("DOMContentLoaded", () => {
+  gridContainer.style.gridTemplateRows = `repeat(${size}, 1em)`;
+  gridContainer.style.gridTemplateColumns = `repeat(${size}, 1em)`;
+  makeGrid(size);
+  setupCellEventListeners();
 });
 
-function reset() {
-  let cells = document.querySelectorAll(".cell");
-  cells.forEach((cell) => {
-    gridContainer.removeChild(cell);
-  });
-}
+document.querySelector("#draw").addEventListener("click", () => {
+  choice = 1; // Set choice to 1 for drawing
+});
+
+document.querySelector("#erase").addEventListener("click", () => {
+  choice = 0; // Set choice to 0 for erasing
+});
+
+document.querySelector("#clear").addEventListener("click", () => {
+  clearAllCells();
+  choice = 1;
+});
